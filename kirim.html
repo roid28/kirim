@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pendaftaran</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Form Pendaftaran</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="regNo">Nomor Pendaftaran:</label>
+        <input type="text" class="form-control" id="regNo" required>
+      </div>
+      <div class="form-group">
+        <label for="name">Nama:</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Alamat:</label>
+        <textarea class="form-control" id="address" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="program">Program Studi:</label>
+        <select class="form-control" id="program" required>
+          <option value="">Pilih Program Studi</option>
+          <option value="A11">A11</option>
+          <option value="A12">A12</option>
+          <option value="A14">A14</option>
+          <option value="A15">A15</option>
+          <option value="other">Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dob">Tanggal Lahir:</label>
+        <input type="date" class="form-control" id="dob" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="result" class="mt-4"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const regNo = document.getElementById('regNo').value;
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const program = document.getElementById('program').value;
+      const dob = document.getElementById('dob').value;
+
+      const sppCost = 3000000;
+      const polyclinicCost = 300000;
+
+      let tuitionFee;
+      switch (program) {
+        case 'A11':
+        case 'A12':
+          tuitionFee = 30000000;
+          break;
+        case 'A14':
+          tuitionFee = 28000000;
+          break;
+        case 'A15':
+          tuitionFee = 27000000;
+          break;
+        default:
+          tuitionFee = 25000000;
+      }
+
+      const totalFee = tuitionFee + sppCost + polyclinicCost;
+
+      result.innerHTML = `
+        <h3>Hasil Pendaftaran</h3>
+        <p>Nomor Pendaftaran: ${regNo}</p>
+        <p>Nama: ${name}</p>
+        <p>Alamat: ${address}</p>
+        <p>Program Studi: ${program}</p>
+        <p>Tanggal Lahir: ${dob}</p>
+        <p>Total Tagihan: Rp ${totalFee.toLocaleString()}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
